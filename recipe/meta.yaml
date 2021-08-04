@@ -1,0 +1,36 @@
+{% set version = "1.0" %}
+package:
+  name: mamba-bash-completion
+  version: "{{ version }}"
+
+source:
+  git_rev: "{{ version }}"
+  git_url: https://github.com/tartansandal/mamba-bash-completion
+
+build:
+  number: 1
+
+requirements:
+  build:
+    - bash-completion
+    - conda-bash-completion
+    - mamba
+  run:
+    - bash-completion
+    - conda-bash-completion
+    - mamba
+
+test:
+    source_files:
+      - mamba
+    commands:
+      # Ensure the library loads without error
+      - bash -e mamba
+
+about:
+  home: https://github.com/tartansandal/mamba-bash-completion
+  license: GPL3
+  license_file: LICENSE
+  summary: "Bash completion for the mamba commmand."
+
+# vim:set ts=8 sw=2 sts=2 tw=78 et:

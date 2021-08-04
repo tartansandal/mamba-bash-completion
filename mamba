@@ -1,0 +1,39 @@
+# bash_completion for mamba.
+
+# An extension of conda_bash_completion
+
+# The extglob option is set by the bash_completion library anyway,
+# Setting it here to work around some rare edge cases.
+shopt -s extglob
+
+if ! declare -F _comp_conda > /dev/null
+then
+    # load `conda` completion using the bash completion routine
+    __load_completion conda
+fi
+
+function __comp_mamba_commands () {
+    __comp_conda_commands
+    echo repoquery
+}
+
+_comp_mamba()
+{
+    \local cur prev
+    _init_completion || return
+
+    \local word_list
+    case "$prev" in
+        mamba)
+            word_list=$(__comp_mamba_commands 2>/dev/null)
+            ;;
+    esac
+    if [[ -n $word_list ]]; then
+        COMPREPLY+=( $(compgen -W "$word_list" -- "$cur") )
+    else
+        _comp_conda
+    fi
+} &&
+complete -F _comp_mamba mamba
+
+# vim: ft=sh
