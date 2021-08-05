@@ -1,11 +1,17 @@
-# mamba-bash-completion
+# Bash completion support for the `mamba` command
 
-Extending `conda-bash-completion` to work with `mamba`.
-
-See git@github.com:tartansandal/conda-bash-completion.git for details.
-
+This extends the
+[`conda-bash-completion`](git@github.com:tartansandal/conda-bash-completion.git)
+code to work with [`mamba`](https://mamba.readthedocs.io/en/latest/).
 All we are doing here is adding support for the `repoquery` command and passing
-on to the existing `conda-bash-completion` code.
+off to the existing `conda-bash-completion` code.
+
+Once this is submitted to conda-forge you should be able to install the freauter
+via the `mamba-bash-completion` package (and its dependencies):
+
+```bash
+mamba install -c conda-forge mamba-bash-completion
+```
 
 ## NOTES
 
@@ -13,5 +19,5 @@ on to the existing `conda-bash-completion` code.
 
 The `minimamba` executable is built on
 [cli11](https://cliutils.github.io/CLI11/book/)
-and has completion support built-in, so we are not providing any additional
-support for that.
+and has completion support built-in, so we are not going to mess with that
+:wink:.
