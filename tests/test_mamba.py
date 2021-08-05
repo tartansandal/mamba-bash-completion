@@ -18,6 +18,7 @@ class TestConda:
             'activate',
             'build',
             'clean',
+            'compare',
             'config',
             'convert',
             'create',
@@ -33,6 +34,7 @@ class TestConda:
             'install',
             'list',
             'metapackage',
+            'pack',
             'package',
             'remove',
             'render',
@@ -41,12 +43,11 @@ class TestConda:
             'search',
             'server',
             'skeleton',
-            'smithy',
             'uninstall',
             'update',
             'upgrade',
             'verify',
-        ]
+         ]
 
     @pytest.mark.complete("mamba d")
     def test_top_level_partial_cmds(self, completion):
@@ -92,13 +93,18 @@ class TestConda:
     def test_sub_comand_options(self, completion):
         assert completion
         assert completion == [
+            '--dry-run',
             '--file',
             '--force',
             '--help',
+            '--insecure',
             '--json',
             '--name',
+            '--no-default-packages',
+            '--offline',
             '--prefix',
             '--quiet',
+            '--use-index-cache',
             '--verbose',
         ]
 
