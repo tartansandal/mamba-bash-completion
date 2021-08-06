@@ -1,7 +1,7 @@
 import pytest
 
 
-class TestConda:
+class TestMamba:
     @pytest.mark.complete("mamba")
     def test_base_command(self, completion):
         assert completion
