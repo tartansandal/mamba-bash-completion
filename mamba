@@ -19,15 +19,13 @@ function __comp_mamba_commands () {
 
 _comp_mamba()
 {
-    \local cur prev
+    # shellcheck disable=SC2034
+    \local cur prev words cword
+
     _init_completion || return
 
-    \local word_list cmd_str
-    if [[ $cur == -* ]]; then
-        # get the current list of commands as a string sans options
-        cmd_str="$(__comp_conda_cmds_str ${words[@]})"
-        word_list=$(__comp_conda_option_lookup "$cmd_str")
-    else
+    \local word_list
+    if [[ $cur != -* ]]; then
         case "$prev" in
             mamba)
                 word_list=$(__comp_mamba_commands 2>/dev/null)
@@ -35,9 +33,10 @@ _comp_mamba()
         esac
     fi
     if [[ -n $word_list ]]; then
-        COMPREPLY+=( $(compgen -W "$word_list" -- "$cur") )
+        # append completion suggestions to COMPREPLY
+        mapfile -t -O "${#COMPREPLY[@]}" COMPREPLY < \
+            <(compgen -W "$word_list" -- "$cur")
     else
-        unset cur prev cword words
         _comp_conda
     fi
 } &&
