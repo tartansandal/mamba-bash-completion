@@ -123,7 +123,6 @@ class TestConda:
             'inputrc',
         ]
 
-    @pytest.mark.xfail(reason='This works when manually testing')
     @pytest.mark.complete("mamba verify ")
     def test_verify(self, completion):
         assert completion
