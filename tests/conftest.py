@@ -77,6 +77,8 @@ def bash(request) -> pexpect.spawn:
     assert_bash_exec(bash, f"source '{bashrc_file}'")
     assert_bash_exec(bash, f"source '{bash_completion_file}'")
     assert_bash_exec(bash, f"source '{mamba_file}'")
+
+    # Ensure we have at least one test environment
     assert_bash_exec(
         bash,
         "mamba create -y -n 'mamba-bash-comp-testing'",

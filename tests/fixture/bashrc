@@ -9,6 +9,10 @@ set -o emacs
 # Use bash strict mode
 set -o posix
 
+# Raise error on uninitialized variables
+# This really slows down tests ... maybe wait for new version of bash_completion
+# set -o nounset
+
 # Unset `command_not_found_handle' as defined on Debian/Ubuntu, because this
 # troubles and slows down testing
 unset -f command_not_found_handle
@@ -24,6 +28,13 @@ export BASH_COMPLETION_USER_FILE=/dev/null
 # found in any completion dirs. Therefore we also point the "system" dirs to
 # locations that should not yield valid completions and helpers paths either.
 export BASH_COMPLETION_USER_DIR=/var/empty
+
 # /var/empty isn't necessarily actually always empty :P
 export BASH_COMPLETION_COMPAT_DIR=/var/empty/bash_completion.d
 export XDG_DATA_DIRS=/var/empty
+
+# @param $1  Char to add to $COMP_WORDBREAKS
+add_comp_wordbreak_char()
+{
+    [[ "${COMP_WORDBREAKS//[^$1]/}" ]] || COMP_WORDBREAKS+=$1
+}
